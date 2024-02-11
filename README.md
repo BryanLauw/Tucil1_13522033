@@ -20,13 +20,32 @@ git clone https://github.com/BryanLauw/Tucil1_13522033.git
 ```
 2. Jika ingin meng-compile program jalankan perintah
 ```bash
-gcc -o bin/main main.c data.c
+gcc -o bin/main src/main.c src/data.c
 ```
-3. Jalankan program dengan perintah
+3. Pada Windows, jalankan program dengan perintah:
+```shell
+.\bin\main.exe
+```
+Sedangkan pada Linux, jalankan program dengan perintah:
 ```bash
 bin/main
 ```
-4. Ikuti arahan program dan berikan input.
+4. Jika ingin menginput dari file, gunakan format berikut pada file txt dan tempatkan pada folder test.
+```
+buffer_size
+matrix_width matrix_height
+matrix
+number_of_sequences
+sequences_1
+sequences_1_reward
+sequences_2
+sequences_2_reward
+…
+sequences_n
+sequences_n_reward
+```
+Contoh terdapat pada file percobaan1.txt
+5. Ikuti arahan program dan berikan input.
 
 ## Struktur File
 Direktori tugas ini memiliki struktur file sebagai berikut:
