@@ -1,7 +1,7 @@
 # Tugas Kecil 1 IF2211 Strategi Algoritma
 > by Bryan Cornelius Lauwrence
 
-## Tabel Konten
+## Daftar Konten
 * [Informasi Umum](#informasi-umum)
 * [Deskripsi Singkat](#deskripsi-singkat)
 * [Setup dan Penggunaan](#setup-dan-penggunaan)
