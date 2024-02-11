@@ -45,6 +45,18 @@ void createEmptySequence (Sequence *s)
     SKOR(*s) = 0;
 }
 
+void inputToken (Token *T)
+/* Membuat point dari input user */
+/* I.S. P sembarang */
+/* F.S. P terdefinisi sesuai input user */
+{
+    /* KAMUS LOKAL */
+    char depan, belakang;
+    /* ALGORITMA */
+    scanf(" %c%c", &depan, &belakang);
+    createToken(depan,belakang,T);
+}
+
 void fillSequence (Sequence *s, Token t)
 /* Mengisi sekuens s dengan suatu token t di ujung sekuens */
 /* I.S. Sequence s terdefinisi kosong atau sudah berisi dan tidak penuh */
@@ -213,7 +225,7 @@ void printListOfSequence (ListSequence l)
     for (i = 0; i < LENGTH_LS(l); i++) {
         printf("%d. ", i+1);
         printSequence(ELMT_LS(l,i));
-        printf("(%d point)", SKOR(ELMT_LS(l,i)));
+        printf("(Reward: %d)\n", SKOR(ELMT_LS(l,i)));
     }
 }
 
@@ -277,7 +289,7 @@ void inputFileTXT (int *buffer_size, Matrix *m, ListSequence *l)
 {
     /* KAMUS LOKAL */
     FILE *f;
-    char path[] = "../test/";
+    char path[] = "./test/";
     char file[50];
     char myString[256];
     char *temp;
@@ -288,7 +300,7 @@ void inputFileTXT (int *buffer_size, Matrix *m, ListSequence *l)
     Sequence s;
     /* ALGORITMA */
     printf("Input dilakukan melalui file txt\n");
-    printf("Masukkan nama file txt (tanpa ekstensi): ");
+    printf("Masukkan nama file txt pada folder test (tanpa ekstensi): ");
     scanf("%s",file);
     strcat(path,file);
     strcat(path,".txt");
@@ -297,8 +309,8 @@ void inputFileTXT (int *buffer_size, Matrix *m, ListSequence *l)
     while (f == NULL)
     {
         path[8] = '\0';
-        printf("File tidak ditemukan.\n");
-        printf("Masukkan kembali nama file txt (tanpa ekstensi): ");
+        printf("File tidak ditemukan pada folder test.\n");
+        printf("Masukkan kembali nama file txt pada folder test (tanpa ekstensi): ");
         scanf("%s",file);
         strcat(path,file);
         strcat(path,".txt");
@@ -347,17 +359,68 @@ void inputFileTXT (int *buffer_size, Matrix *m, ListSequence *l)
     fclose(f);
 }
 
-void inputCLI (int *buffer_size, Matrix *m, ListSequence *l);
+void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
 /* Membaca masukkan melalui command line interface */
 /* I.S. buffer_size, Matrix m, dan ListSequence l sembarang */
 /* F.S. buffer_size, Matrix m, dan ListSequence l terdefinisi sesuai bacaan command line */
+{
+    /* KAMUS LOKAL */
+    int i, j;
+    int nToken, maksSequence, nSequence;
+    int row, col;
+    int random, sLong;
+    Token t;
+    Sequence s;
+    /* ALGORITMA */
+    srand(time(0));
+    printf("Input dilakukan melalui command line\n");
+    printf("Masukkan jumlah token unik: ");
+    scanf("%d",&nToken);
+
+    Token listOfToken[nToken];
+    printf("Masukkan seluruh token (pisahkan dengan spasi atau enter): ");
+    for (i = 0; i < nToken; i++) {
+        inputToken(&t);
+        listOfToken[i] = t;
+    }
+
+    printf("Masukkan ukuran buffer: ");
+    scanf("%d",buffer_size);
+
+    printf("Masukkan ukuran matriks (kolom baris): ");
+    scanf("%d %d",&col,&row);
+    createMatrix(row,col,m);
+    for (i = 0; i < row; i++) {
+        for (j = 0; j < col; j++) {
+            random = rand() % nToken;
+            ELMT_MATRIX(*m,i,j) = listOfToken[random];
+        }
+    }
+
+    printf("Masukkan jumlah sekuens: ");scanf("%d",&nSequence);
+    printf("Masukkan ukuran maksimal sekuens: ");scanf("%d",&maksSequence);
+    createListOfSequence(l);
+    for (i = 0; i < nSequence; i++) {
+        createEmptySequence(&s);
+        sLong = (rand() % (maksSequence - 1)) + 2; // Menghasilkan ukuran sekuens
+        fillScoreSequence(&s, ((rand() % 5) + 1) * 5);
+        for (j = 0; j < sLong; j++) {
+            random = rand() % nToken;
+            fillSequence(&s, listOfToken[random]);
+        }
+        pushListOfSequence(l,s);
+    }
+
+    printf("\nMatriks yang terbentuk:\n");printMatriks(*m);printf("\n");
+    printf("Sekuens-sekuens yang terbentuk:\n");printListOfSequence(*l);
+}
 
 void saveToTXT (Buffer b, Matrix m, int skor, int time)
 /* Menyimpan solusi ke dalam file txt */
 {
     /* KAMUS LOKAL */
     FILE *f;
-    char path[] = "../test/";
+    char path[256] = "./test/";
     char saveName[50];
     int i;
     Token t;
@@ -371,7 +434,7 @@ void saveToTXT (Buffer b, Matrix m, int skor, int time)
     f = fopen(path,"w");
     fprintf(f,"%d\n",skor);
     if (skor == 0) {
-        fprintf(f, "Tidak ada solusi\n\n");
+        fprintf(f, "Tidak ada solusi\n");
     } else {
         for (i = 0; i < LENGTH_BUFFER(b); i++) {
             t = ELMT_MATRIX(m,ABSIS(ELMT_BUFFER(b,i)),ORDINAT(ELMT_BUFFER(b,i)));

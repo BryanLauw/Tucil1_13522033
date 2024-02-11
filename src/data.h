@@ -90,6 +90,11 @@ void createEmptySequence (Sequence *s);
 /* I.S. Sekuens s sembarang */
 /* F.S. Sekeuns s terdefinisi dan kosong */
 
+void inputToken (Token *T);
+/* Membuat point dari input user */
+/* I.S. P sembarang */
+/* F.S. P terdefinisi sesuai input user */
+
 void fillSequence (Sequence *s, Token t);
 /* Mengisi sekuens s dengan suatu token t di ujung sekuens */
 /* I.S. Sequence s terdefinisi kosong atau sudah berisi dan tidak penuh */
