@@ -170,6 +170,42 @@ int checkBufferListSequence (Buffer b, Matrix m, ListSequence l)
     return n;
 }
 
+boolean sameSequence (Sequence S1, Sequence S2)
+/* Mengembalikan true jika S1 dan S2 adalah sekuens yang sama */
+{
+    /* KAMUS LOKAL */
+    int i;
+    /* ALGORITMA */
+    if (LENGTH_SEQUENCE(S1) != LENGTH_SEQUENCE(S2)) {
+        return false;
+    } else {
+        for (i = 0; i < LENGTH_SEQUENCE(S1); i++) {
+            if ((FRONT(ELMT_SEQUENCE(S1,i)) != FRONT(ELMT_SEQUENCE(S2,i))) && (BACK(ELMT_SEQUENCE(S1,i)) != BACK(ELMT_SEQUENCE(S2,i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+boolean sequenceExist (Sequence S, ListSequence L)
+/* Mengembalikan true jika terdapat sequence S pada list L */
+{
+    /* KAMUS LOKAL */
+    int i;
+    /* ALGORITMA */
+    if (LENGTH_LS(L) == 0) {
+        return false;
+    } else {
+        for (i = 0; i < LENGTH_LS(L); i++) {
+            if (sameSequence(S,ELMT_LS(L,i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 boolean samePointToken (Token t, Matrix m, Point p)
 /* Mengembalikan true jika point p pada matriks sama dengan token */
 {
@@ -317,7 +353,7 @@ void inputFileTXT (int *buffer_size, Matrix *m, ListSequence *l)
         f = fopen(path,"r");
     }
 
-    printf("\nMelakukan perhitungan...");
+    printf("\nMembaca file...\n");
     /* 1. Membaca ukuran buffer */
     fgets(myString,256,f);
     *buffer_size = convertStringToInteger(myString);
@@ -357,6 +393,7 @@ void inputFileTXT (int *buffer_size, Matrix *m, ListSequence *l)
         pushListOfSequence(l,s);
     }
     fclose(f);
+    printf("File selesai dibaca\n");
 }
 
 void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
@@ -408,7 +445,12 @@ void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
             random = rand() % nToken;
             fillSequence(&s, listOfToken[random]);
         }
-        pushListOfSequence(l,s);
+        
+        if (sequenceExist(s,*l)) {
+            i--;
+        } else {
+            pushListOfSequence(l,s);
+        }
     }
 
     printf("\nMatriks yang terbentuk:\n");printMatriks(*m);printf("\n");
@@ -463,102 +505,106 @@ void findBestOption (Matrix m, ListSequence l, Buffer *b, int *skorAkhir)
     int skorMaks = 0;
     int skorTemp;
     /* ALGORITMA */
-    for (i = 0; i < MAX_CAP(*b); i++) {
-        ctr[i] = 0;
-    }
-
-    for (i = 0; i < LENGTH_LS(l); i++) {
-        skorMaks += SKOR(ELMT_LS(l,i));
-    }
-
-    createEmptyBuffer(&tempBuffer,MAX_CAP(*b));
-
-    while (ctr[0] < COL_EFF(m) && *skorAkhir != skorMaks) {
-        if (idx == 0) {
-            createPoint(0,ctr[idx],&p);
-            pushBuffer(&tempBuffer,p);
-            idx++;
-        } else if (idx < MAX_CAP(*b)-1) {
-            if (idx % 2 != 0) {
-                if (ctr[idx] != ROW_EFF(m)) {
-                    if (pointNotExist(tempBuffer,ctr[idx],ctr[idx-1])) {
-                        createPoint(ctr[idx],ctr[idx-1],&p);
-                        pushBuffer(&tempBuffer,p);
-                        skorTemp = checkBufferListSequence(tempBuffer,m,l);
-                        if (skorTemp > *skorAkhir) {
-                            *skorAkhir = skorTemp;
-                            *b = tempBuffer;
-                        }
-                        idx++;
-                    } else {
-                        ctr[idx]++;
-                    }
-                } else {
-                    popBuffer(&tempBuffer);
-                    ctr[idx] = 0;
-                    idx--;
-                    ctr[idx]++;
-                }
-            } else {
-                if (ctr[idx] != COL_EFF(m)) {
-                    if (pointNotExist(tempBuffer,ctr[idx-1],ctr[idx])) {
-                        createPoint(ctr[idx-1],ctr[idx],&p);
-                        pushBuffer(&tempBuffer,p);
-                        skorTemp = checkBufferListSequence(tempBuffer,m,l);
-                        if (skorTemp > *skorAkhir) {
-                            *skorAkhir = skorTemp;
-                            *b = tempBuffer;
-                        }
-                        idx++;
-                    } else {
-                        ctr[idx]++;
-                    }
-                } else {
-                    popBuffer(&tempBuffer);
-                    ctr[idx] = 0;
-                    idx--;
-                    ctr[idx]++;
-                }
-            }
-        } else {
-            if (idx % 2 != 0) {
-                while (ctr[idx] < ROW_EFF(m) && *skorAkhir != skorMaks) {
-                    if (pointNotExist(tempBuffer,ctr[idx],ctr[idx-1])) {
-                        createPoint(ctr[idx],ctr[idx-1],&p);
-                        pushBuffer(&tempBuffer,p);
-                        
-                        skorTemp = checkBufferListSequence(tempBuffer,m,l);
-                        if (skorTemp > *skorAkhir) {
-                            *skorAkhir = skorTemp;
-                            *b = tempBuffer;
-                        }
-                        ctr[idx]++;
-                        popBuffer(&tempBuffer);
-                    } else {
-                        ctr[idx]++;
-                    }
-                }
-            } else {
-                while (ctr[idx] < COL_EFF(m) && *skorAkhir != skorMaks) {
-                    if (pointNotExist(tempBuffer,ctr[idx-1],ctr[idx])) {
-                        createPoint(ctr[idx-1],ctr[idx],&p);
-                        pushBuffer(&tempBuffer,p);
-                        skorTemp = checkBufferListSequence(tempBuffer,m,l);
-                        if (skorTemp > *skorAkhir) {
-                            *skorAkhir = skorTemp;
-                            *b = tempBuffer;
-                        }
-                        ctr[idx]++;
-                        popBuffer(&tempBuffer);
-                    } else {
-                        ctr[idx]++;
-                    }
-                }
-            }
-            ctr[idx] = 0;
-            idx--;
-            ctr[idx]++;
-            popBuffer(&tempBuffer);
+    if (MAX_CAP(*b) > 0) {
+        for (i = 0; i < MAX_CAP(*b); i++) {
+            ctr[i] = 0;
         }
+
+        for (i = 0; i < LENGTH_LS(l); i++) {
+            skorMaks += SKOR(ELMT_LS(l,i));
+        }
+
+        createEmptyBuffer(&tempBuffer,MAX_CAP(*b));
+
+        while (ctr[0] < COL_EFF(m) && *skorAkhir != skorMaks) {
+            if (idx == 0) {
+                createPoint(0,ctr[idx],&p);
+                pushBuffer(&tempBuffer,p);
+                idx++;
+            } else if (idx < MAX_CAP(*b)-1) {
+                if (idx % 2 != 0) {
+                    if (ctr[idx] != ROW_EFF(m)) {
+                        if (pointNotExist(tempBuffer,ctr[idx],ctr[idx-1])) {
+                            createPoint(ctr[idx],ctr[idx-1],&p);
+                            pushBuffer(&tempBuffer,p);
+                            skorTemp = checkBufferListSequence(tempBuffer,m,l);
+                            if (skorTemp > *skorAkhir) {
+                                *skorAkhir = skorTemp;
+                                *b = tempBuffer;
+                            }
+                            idx++;
+                        } else {
+                            ctr[idx]++;
+                        }
+                    } else {
+                        popBuffer(&tempBuffer);
+                        ctr[idx] = 0;
+                        idx--;
+                        ctr[idx]++;
+                    }
+                } else {
+                    if (ctr[idx] != COL_EFF(m)) {
+                        if (pointNotExist(tempBuffer,ctr[idx-1],ctr[idx])) {
+                            createPoint(ctr[idx-1],ctr[idx],&p);
+                            pushBuffer(&tempBuffer,p);
+                            skorTemp = checkBufferListSequence(tempBuffer,m,l);
+                            if (skorTemp > *skorAkhir) {
+                                *skorAkhir = skorTemp;
+                                *b = tempBuffer;
+                            }
+                            idx++;
+                        } else {
+                            ctr[idx]++;
+                        }
+                    } else {
+                        popBuffer(&tempBuffer);
+                        ctr[idx] = 0;
+                        idx--;
+                        ctr[idx]++;
+                    }
+                }
+            } else {
+                if (idx % 2 != 0) {
+                    while (ctr[idx] < ROW_EFF(m) && *skorAkhir != skorMaks) {
+                        if (pointNotExist(tempBuffer,ctr[idx],ctr[idx-1])) {
+                            createPoint(ctr[idx],ctr[idx-1],&p);
+                            pushBuffer(&tempBuffer,p);
+                            
+                            skorTemp = checkBufferListSequence(tempBuffer,m,l);
+                            if (skorTemp > *skorAkhir) {
+                                *skorAkhir = skorTemp;
+                                *b = tempBuffer;
+                            }
+                            ctr[idx]++;
+                            popBuffer(&tempBuffer);
+                        } else {
+                            ctr[idx]++;
+                        }
+                    }
+                } else {
+                    while (ctr[idx] < COL_EFF(m) && *skorAkhir != skorMaks) {
+                        if (pointNotExist(tempBuffer,ctr[idx-1],ctr[idx])) {
+                            createPoint(ctr[idx-1],ctr[idx],&p);
+                            pushBuffer(&tempBuffer,p);
+                            skorTemp = checkBufferListSequence(tempBuffer,m,l);
+                            if (skorTemp > *skorAkhir) {
+                                *skorAkhir = skorTemp;
+                                *b = tempBuffer;
+                            }
+                            ctr[idx]++;
+                            popBuffer(&tempBuffer);
+                        } else {
+                            ctr[idx]++;
+                        }
+                    }
+                }
+                ctr[idx] = 0;
+                idx--;
+                ctr[idx]++;
+                popBuffer(&tempBuffer);
+            }
+        }
+    } else {
+        *skorAkhir = 0;
     }
 }

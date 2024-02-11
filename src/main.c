@@ -1,5 +1,10 @@
 #include "data.h"
-#include <unistd.h>
+
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
 
 /* KAMUS */
 int pilih;
@@ -13,7 +18,7 @@ int bufferSize;
 int totalSkor = 0;
 /* ALGORITMA */
 int main () {
-    system("clear");
+    system(CLEAR);
     printf("Selamat datang!\nPenyelesaian Cyberpunk 2077 Breach Protocol dengan Algoritma Brute Force\n");
     printf("====================================:====================================\n");
     do {
@@ -33,6 +38,7 @@ int main () {
         }
         createEmptyBuffer(&b,bufferSize);
 
+        printf("\nMelakukan perhitungan...\n");
         clock_t begin = clock();
         findBestOption(m,l,&b,&totalSkor);
         clock_t end = clock();

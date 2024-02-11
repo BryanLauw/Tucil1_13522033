@@ -136,6 +136,12 @@ boolean checkBuffer (Buffer b, Matrix m, Sequence s);
 int checkBufferListSequence (Buffer b, Matrix m, ListSequence l);
 /* Mengembalikan skor total dari buffer b */
 
+boolean sameSequence (Sequence S1, Sequence S2);
+/* Mengembalikan true jika S1 dan S2 adalah sekuens yang sama */
+
+boolean sequenceExist (Sequence S, ListSequence L);
+/* Mengembalikan true jika terdapat sequence S pada list L */
+
 boolean samePointToken (Token t, Matrix m, Point p);
 /* Mengembalikan true jika point p pada matriks sama dengan token */
 
