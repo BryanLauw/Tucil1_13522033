@@ -35,7 +35,8 @@ Sedangkan pada Linux, jalankan program dengan perintah:
 ```bash
 bin/main
 ```
-4. Jika ingin menginput dari file, gunakan format berikut pada file txt dan tempatkan pada folder test.
+4. Ikuti arahan program dan berikan input.
+5. Jika ingin menginput dari file, gunakan format berikut pada file txt dan tempatkan pada folder test.
 ```
 buffer_size
 matrix_width matrix_height
@@ -50,7 +51,6 @@ sequences_n
 sequences_n_reward
 ```
 Contoh terdapat pada file percobaan1.txt<br>
-5. Ikuti arahan program dan berikan input.
 
 ## Struktur File
 Direktori tugas ini memiliki struktur file sebagai berikut:
