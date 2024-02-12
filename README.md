@@ -61,7 +61,7 @@ Direktori tugas ini memiliki struktur file sebagai berikut:
 │   ├── main
 │   └── main.exe
 ├── doc
-│   └── Tucil1_K01_13522033_Bryan Cornelius Lauwrence.pdf
+│   └── Tucil1_K1_13522033_Bryan Cornelius Lauwrence.pdf
 ├── src
 │   ├── boolean.h
 │   ├── data.c
