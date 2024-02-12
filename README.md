@@ -11,16 +11,21 @@
 Penyelesaian Cyberpunk 2077 Breach Protocol dengan Algoritma Brute Force.
 
 ## Deskripsi Singkat
-Pemain menyediakan matriks berisi dua karakter alfanumerik dan beberapa sekuens beserta reward dari masing-masing sekuens. Program akan mencari solusi terbaik (reward maksimal) dari matriks dimulai dari salah satu kolom pada baris pertama, lalu bergerak horizontal dan vertikal secara bergantian dengan algoritma brute force. <br>Program dibuat dalam bahasa C.<br>Contoh terdapat pada laman https://cyberpunk-hacker.com/.
+Pemain menyediakan matriks berisi dua karakter alfanumerik dan beberapa sekuens beserta reward dari masing-masing sekuens. Program akan mencari solusi terbaik (reward maksimal) dari matriks dimulai dari salah satu kolom pada baris pertama, lalu bergerak horizontal dan vertikal secara bergantian dengan algoritma brute force.\Program dibuat dalam bahasa pemrograman C.\Contoh terdapat pada laman https://cyberpunk-hacker.com/.
 
 ## Setup dan Penggunaan
 1. Clone repository ini dengan perintah
 ```bash
 git clone https://github.com/BryanLauw/Tucil1_13522033.git
 ```
-2. Jika ingin meng-compile program jalankan perintah
-```bash
+2. Jika ingin meng-compile program jalankan perintah sesuai OS
+Pada Windows:
+```shell
 gcc -o bin/main src/main.c src/data.c
+```
+Pada Linux:
+```bash
+gcc -o bin/main src/main.c src/data.c -lm
 ```
 3. Pada Windows, jalankan program dengan perintah:
 ```shell
@@ -49,7 +54,7 @@ Contoh terdapat pada file percobaan1.txt
 
 ## Struktur File
 Direktori tugas ini memiliki struktur file sebagai berikut:
-```shell
+```
 .
 ├── README.md
 ├── bin
