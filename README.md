@@ -18,7 +18,7 @@ Pemain menyediakan matriks berisi dua karakter alfanumerik dan beberapa sekuens 
 ```bash
 git clone https://github.com/BryanLauw/Tucil1_13522033.git
 ```
-2. Jika ingin meng-compile program jalankan perintah sesuai OS
+2. Jika ingin meng-compile program jalankan perintah sesuai OS<br>
 Pada Windows:
 ```shell
 gcc -o bin/main src/main.c src/data.c
@@ -49,13 +49,12 @@ sequences_2_reward
 sequences_n
 sequences_n_reward
 ```
-Contoh terdapat pada file percobaan1.txt
+Contoh terdapat pada file percobaan1.txt<br>
 5. Ikuti arahan program dan berikan input.
 
 ## Struktur File
 Direktori tugas ini memiliki struktur file sebagai berikut:
 ```
-.
 .
 ├── README.md
 ├── bin
