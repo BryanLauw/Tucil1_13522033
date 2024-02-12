@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <time.h>
 #include "boolean.h"
 /* Ukuran maksimum baris dan kolom untuk matriks dan ukuran maksimum sekuens */
@@ -173,6 +174,9 @@ void inputFileTXT (int *buffer_size, Matrix *m, ListSequence *l);
 /* Membaca masukkan melalui file berkestensi .txt */
 /* I.S. buffer_size, Matrix m, dan ListSequence l sembarang */
 /* F.S. buffer_size, Matrix m, dan ListSequence l terdefinisi sesuai bacaan file */
+
+int findMinimumSequenceSize (int nToken, int nSequence);
+/* Mengmebalikan panjang sekuens minimum untuk menghasilkan sekuens yang unik dengan jumlah token tertentu */
 
 void inputCLI (int *buffer_size, Matrix *m, ListSequence *l);
 /* Membaca masukkan melalui command line interface */

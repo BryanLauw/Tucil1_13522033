@@ -15,12 +15,30 @@ ListSequence l;
 Buffer b;
 Point p;
 int bufferSize;
-int totalSkor = 0;
+int totalSkor;
 /* ALGORITMA */
 int main () {
     system(CLEAR);
-    printf("Selamat datang!\nPenyelesaian Cyberpunk 2077 Breach Protocol dengan Algoritma Brute Force\n");
-    printf("====================================:====================================\n");
+    
+
+    printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    printf("@                                                                              @\n");
+    printf("@   ____      _                                 _      ____   ___ _____ _____  @\n");
+    printf("@  / ___|   _| |__   ___ _ __ _ __  _   _ _ __ | | __ |___ \\ / _ \\___  |___  | @\n");
+    printf("@ | |  | | | | '_ \\ / _ \\ '__| '_ \\| | | | '_ \\| |/ /   __) | | | | / /   / /  @\n");
+    printf("@ | |__| |_| | |_) |  __/ |  | |_) | |_| | | | |   <   / __/| |_| |/ /   / /   @\n");
+    printf("@  \\____\\__, |_.__/ \\___|_|  | .__/ \\__,_|_| |_|_|\\_\\ |_____|\\___//_/   /_/    @\n");
+    printf("@       |___/                |_|                                               @\n");
+    printf("@  ____                      _       ____            _                  _      @\n");
+    printf("@ | __ ) _ __ ___  __ _  ___| |__   |  _ \\ _ __ ___ | |_ ___   ___ ___ | |     @\n");
+    printf("@ |  _ \\| '__/ _ \\/ _` |/ __| '_ \\  | |_) | '__/ _ \\| __/ _ \\ / __/ _ \\| |     @\n");
+    printf("@ | |_) | | |  __/ (_| | (__| | | | |  __/| | | (_) | || (_) | (_| (_) | |     @\n");
+    printf("@ |____/|_|  \\___|\\__,_|\\___|_| |_| |_|   |_|  \\___/ \\__\\___/ \\___\\___/|_|     @\n");
+    printf("@                                                                              @\n");
+    printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+
+
+    printf("\n========================================:========================================\n");
     do {
         printf("Silakan memilih cara input\n1. File txt\n2. CLI\nPilihan: ");
         scanf("%d",&pilih);
@@ -39,6 +57,7 @@ int main () {
         createEmptyBuffer(&b,bufferSize);
 
         printf("\nMelakukan perhitungan...\n");
+        totalSkor = 0;
         clock_t begin = clock();
         findBestOption(m,l,&b,&totalSkor);
         clock_t end = clock();

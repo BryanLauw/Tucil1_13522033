@@ -396,6 +396,20 @@ void inputFileTXT (int *buffer_size, Matrix *m, ListSequence *l)
     printf("File selesai dibaca\n");
 }
 
+int findMinimumSequenceSize (int nToken, int nSequence)
+/* Mengmebalikan panjang sekuens minimum untuk menghasilkan sekuens yang unik dengan jumlah token tertentu */
+{
+    /* KAMUS LOKAL */
+    int i = 1;
+    double sum = 0;
+    /* ALGORITMA */
+    while (sum < nSequence) {
+        i++;
+        sum += pow((double)nToken,(double)i);
+    }
+    return i;
+}
+
 void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
 /* Membaca masukkan melalui command line interface */
 /* I.S. buffer_size, Matrix m, dan ListSequence l sembarang */
@@ -405,7 +419,7 @@ void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
     int i, j;
     int nToken, maksSequence, nSequence;
     int row, col;
-    int random, sLong;
+    int random, sLong, minSequenceSize;
     Token t;
     Sequence s;
     /* ALGORITMA */
@@ -435,7 +449,10 @@ void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
     }
 
     printf("Masukkan jumlah sekuens: ");scanf("%d",&nSequence);
-    printf("Masukkan ukuran maksimal sekuens: ");scanf("%d",&maksSequence);
+    minSequenceSize = findMinimumSequenceSize(nToken,nSequence);
+    do {
+        printf("Masukkan ukuran maksimal sekuens (harap lebih dari sama dengan %d): ",minSequenceSize);scanf("%d",&maksSequence);
+    } while (maksSequence < minSequenceSize);
     createListOfSequence(l);
     for (i = 0; i < nSequence; i++) {
         createEmptySequence(&s);
@@ -445,7 +462,7 @@ void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
             random = rand() % nToken;
             fillSequence(&s, listOfToken[random]);
         }
-        
+
         if (sequenceExist(s,*l)) {
             i--;
         } else {
