@@ -11,7 +11,7 @@
 Penyelesaian Cyberpunk 2077 Breach Protocol dengan Algoritma Brute Force.
 
 ## Deskripsi Singkat
-Pemain menyediakan matriks berisi dua karakter alfanumerik dan beberapa sekuens beserta reward dari masing-masing sekuens. Program akan mencari solusi terbaik (reward maksimal) dari matriks dimulai dari salah satu kolom pada baris pertama, lalu bergerak horizontal dan vertikal secara bergantian dengan algoritma brute force.\Program dibuat dalam bahasa pemrograman C.\Contoh terdapat pada laman https://cyberpunk-hacker.com/.
+Pemain menyediakan matriks berisi dua karakter alfanumerik dan beberapa sekuens beserta reward dari masing-masing sekuens. Program akan mencari solusi terbaik (reward maksimal) dari matriks dimulai dari salah satu kolom pada baris pertama, lalu bergerak horizontal dan vertikal secara bergantian dengan algoritma brute force.<br>Program dibuat dalam bahasa pemrograman C.<br>Contoh terdapat pada laman https://cyberpunk-hacker.com/.
 
 ## Setup dan Penggunaan
 1. Clone repository ini dengan perintah
@@ -56,22 +56,32 @@ Contoh terdapat pada file percobaan1.txt
 Direktori tugas ini memiliki struktur file sebagai berikut:
 ```
 .
+.
 ├── README.md
 ├── bin
+│   ├── main
 │   └── main.exe
 ├── doc
-│   └── Screenshot 2024-02-11 190004.png
+│   └── Tucil1_K01_13522033_Bryan Cornelius Lauwrence.pdf
 ├── src
 │   ├── boolean.h
 │   ├── data.c
 │   ├── data.h
-│   └── main.c
+│   ├── main.c
+│   └── try.py
 └── test
-    ├── cli1.txt
-    ├── percobaan-2.txt
+    ├── percobaan1-answer.txt
+    ├── percobaan1.txt
     ├── percobaan2-answer.txt
-    ├── try-answer.txt
-    └── try.txt
+    ├── percobaan2.txt
+    ├── percobaan3-answer.txt
+    ├── percobaan3.txt
+    ├── percobaan4-answer.txt
+    ├── percobaan5-answer.txt
+    ├── percobaan5.txt
+    ├── percobaan6-answer.txt
+    ├── percobaan7-answer.txt
+    └── percobaan7.txt
 ```
 
 ## Kreator
