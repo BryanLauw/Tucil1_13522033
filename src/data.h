@@ -13,7 +13,7 @@
 /* Ukuran maksimum baris dan kolom untuk matriks dan ukuran maksimum sekuens */
 #define CAP 100
 
-/* Definis tipe data */
+/* Definisi tipe data */
 /* Tipe data point */
 typedef struct {
     int X;
