@@ -427,6 +427,11 @@ void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
     printf("Input dilakukan melalui command line\n");
     printf("Masukkan jumlah token unik: ");
     scanf("%d",&nToken);
+    while (nToken < 2) {
+        printf("Jumlah token unik harus lebih dari 1\n");
+        printf("Masukkan jumlah token unik kembali: ");
+        scanf("%d",&nToken);
+    }
 
     Token listOfToken[nToken];
     printf("Masukkan seluruh token (pisahkan dengan spasi atau enter): ");
@@ -437,9 +442,19 @@ void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
 
     printf("Masukkan ukuran buffer: ");
     scanf("%d",buffer_size);
+    while (*buffer_size < 2) {
+        printf("Ukuran buffer harus lebih dari 1\n");
+        printf("Masukkan ukuran buffer kembali: ");
+        scanf("%d",buffer_size);
+    }
 
     printf("Masukkan ukuran matriks (kolom baris): ");
     scanf("%d %d",&col,&row);
+    while (col <= 1 || row <= 1) {
+        printf("Ukuran matriks minimal 2x2\n");
+        printf("Masukkan ukuran matriks kembali (kolom baris): ");
+        scanf("%d %d",&col,&row);
+    }
     createMatrix(row,col,m);
     for (i = 0; i < row; i++) {
         for (j = 0; j < col; j++) {
@@ -448,7 +463,12 @@ void inputCLI (int *buffer_size, Matrix *m, ListSequence *l)
         }
     }
 
-    printf("Masukkan jumlah sekuens: ");scanf("%d",&nSequence);
+    printf("Masukkan jumlah sekuens: ");
+    scanf("%d",&nSequence);
+    while (nSequence < 1) {
+        printf("Jumlah sekuens minimal 1\nMasukkan jumlah sekuens kembali: ");
+        scanf("%d",&nSequence);
+    }
     minSequenceSize = findMinimumSequenceSize(nToken,nSequence);
     do {
         printf("Masukkan ukuran maksimal sekuens (harap lebih dari sama dengan %d): ",minSequenceSize);scanf("%d",&maksSequence);
