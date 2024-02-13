@@ -313,6 +313,9 @@ int convertStringToInteger (char str[])
     int i = 0;
     int n = 0;
     /* ALGORITMA */
+    if (str[0] == '-') {
+        return 0;
+    }
     while (str[i] != ' ' && str[i] != '\n' && str[i] != '\r' && str[i] != '\0') {
         n *= 10;
         n += str[i] - '0';
@@ -542,7 +545,7 @@ void findBestOption (Matrix m, ListSequence l, Buffer *b, int *skorAkhir)
     int skorMaks = 0;
     int skorTemp;
     /* ALGORITMA */
-    if (MAX_CAP(*b) > 0) {
+    if (MAX_CAP(*b) > 1) {
         for (i = 0; i < MAX_CAP(*b); i++) {
             ctr[i] = 0;
         }
